@@ -1,28 +1,26 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 
 
-const LogIn = () => {
+const Register = () => {
 
-    const { signInUser } = useContext(AuthContext)
+    const { createUser } = useContext(AuthContext)
 
-    const handleLogin = e => {
+    const handleRegister = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         const name = e.target.name.value;
         console.log(email, password, name);
 
-        signInUser(email, password)
+        createUser(email, password, name)
             .then(result => {
                 console.log(result.user)
             })
             .catch(error => {
                 console.log(error)
             })
-
     }
 
     return (
@@ -35,7 +33,13 @@ const LogIn = () => {
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
-                        <form onSubmit={handleLogin}>
+                        <form onSubmit={handleRegister}>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                <input type="text" name="name" placeholder="name" className="input input-bordered" required />
+                            </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -52,16 +56,14 @@ const LogIn = () => {
                             </label> */}
                             </div>
                             <div className="form-control mt-6">
-                                <input className="btn btn-primary" type="submit" value="Login" />
+                                <input className="btn btn-primary" type="submit" value="Register" />
                             </div>
-                            <p>New ? visit <NavLink className="text-rose-600 font-semibold" to="/register">Register</NavLink> </p>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
     );
 };
 
-export default LogIn;
+export default Register;
